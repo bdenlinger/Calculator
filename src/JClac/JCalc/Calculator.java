@@ -18,6 +18,19 @@
 
 package JCalc;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import com.udojava.evalex.Expression;
+
 public class Calculator {
 
+	public String reckon(String input) {
+		BigDecimal result = null;
+		Expression expression = new Expression(input);
+		expression.setRoundingMode(RoundingMode.HALF_UP);
+		result = expression.eval();
+		
+		return result.toString();
+	}
 }
