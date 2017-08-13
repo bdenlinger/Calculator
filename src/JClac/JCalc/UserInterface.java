@@ -64,56 +64,28 @@ public class UserInterface {
 	private void init() {
         frame.getContentPane().setLayout(new GridBagLayout());
         
-        makeButton("0",0,5);
-        makeButton("1",0,4);
-        makeButton("2",1,4);
-        makeButton("3",2,4);
-        makeButton("4",0,3);
-        makeButton("5",1,3);
-        makeButton("6",2,3);
-    	makeButton("7",0,2);
-    	makeButton("8",1,2);
-    	makeButton("9",2,2);
-    	makeButton("+",3,5);
-    	makeButton("-",3,4);
-    	makeButton("(",4,3);
-    	makeButton(")",5,3);
-    	makeButton(".",1,5);
-    	makeButton("^",4,4);
+        makeButton("0","0",0,5);
+        makeButton("1","1",0,4);
+        makeButton("2","2",1,4);
+        makeButton("3","3",2,4);
+        makeButton("4","4",0,3);
+        makeButton("5","5",1,3);
+        makeButton("6","6",2,3);
+    	makeButton("7","7",0,2);
+    	makeButton("8","8",1,2);
+    	makeButton("9","9",2,2);
+    	makeButton("+","+",3,5);
+    	makeButton("-","-",3,4);
+    	makeButton("÷","/",3,2);
+    	makeButton("×","*",3,3);
+    	makeButton("(","(",4,3);
+    	makeButton(")",")",5,3);
+    	makeButton(".",".",1,5);
+    	makeButton("^","^",4,4);
     	 	
     	//Special case buttons
     	GridBagConstraints c = new GridBagConstraints();
-    	
-    	button = new JButton("×");
-        button.setFont(buttonFont);
-        button.setPreferredSize(preferredSize);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = padx;
-        c.ipady = pady;
-    	c.gridx = 3;
-    	c.gridy = 3;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			if(!errorState) {butAddPress("*");}
-    		}
-    	});
-    	frame.getContentPane().add(button, c);
-    	
-    	button = new JButton("÷");
-        button.setFont(buttonFont);
-        button.setPreferredSize(preferredSize);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = padx;
-        c.ipady = pady;
-    	c.gridx = 3;
-    	c.gridy = 2;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			if(!errorState) {butAddPress("/");}
-    		}
-    	});
-    	frame.getContentPane().add(button, c);
-    	   	
+    	    	    	   	
     	button = new JButton("⌫");
         button.setFont(buttonFont);
         button.setPreferredSize(preferredSize);
@@ -230,8 +202,8 @@ public class UserInterface {
 	 * @param x Row to insert button into
 	 * @param y	Column to insert button into 
 	 */
-	private void makeButton(final String s, int x, int y) {
-    	button = new JButton(s);
+	private void makeButton(final String label, final String input, int x, int y) {
+    	button = new JButton(label);
         button.setFont(buttonFont);
 		GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -242,7 +214,7 @@ public class UserInterface {
     	button.setPreferredSize(preferredSize);
     	button.addActionListener(new ActionListener() { 
     		public void actionPerformed(ActionEvent e) { 
-    			if(!errorState) {butAddPress(s);}
+    			if(!errorState) {butAddPress(input);}
     		}
     	});   	
     	frame.getContentPane().add(button, c);
