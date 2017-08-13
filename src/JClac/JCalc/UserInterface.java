@@ -41,6 +41,7 @@ public class UserInterface {
     private final Dimension preferredSize = new Dimension(50,40);
     private final int padx = 10;
     private final int pady = 10;
+    private boolean errorState = false;
     
 	
     /**
@@ -93,7 +94,7 @@ public class UserInterface {
     	c.gridy = 3;
     	button.addActionListener(new ActionListener() { 
     		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("*");
+    			if(!errorState) {butAddPress("*");}
     		}
     	});
     	frame.getContentPane().add(button, c);
@@ -108,7 +109,7 @@ public class UserInterface {
     	c.gridy = 2;
     	button.addActionListener(new ActionListener() { 
     		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("/");
+    			if(!errorState) {butAddPress("/");}
     		}
     	});
     	frame.getContentPane().add(button, c);
@@ -123,7 +124,7 @@ public class UserInterface {
     	c.gridy = 2;
     	button.addActionListener(new ActionListener() { 
     		public void actionPerformed(ActionEvent e) { 
-    			butDelPress(1);
+    			if(!errorState) {butDelPress(1);}
     		}
     	});
     	frame.getContentPane().add(button, c);
@@ -153,7 +154,7 @@ public class UserInterface {
     	c.gridy = 4;
     	button.addActionListener(new ActionListener() { 
     		public void actionPerformed(ActionEvent e) { 
-    			butSquareRoot();
+    			if(!errorState) {butSquareRoot();}
     		}
     	});
     	frame.getContentPane().add(button, c);
@@ -168,7 +169,7 @@ public class UserInterface {
     	c.gridy = 5;
     	button.addActionListener(new ActionListener() { 
     		public void actionPerformed(ActionEvent e) { 
-    			butInverse();
+    			if(!errorState) {butInverse();}
     		}
     	});
     	frame.getContentPane().add(button, c);
@@ -184,7 +185,7 @@ public class UserInterface {
     	c.gridwidth = 2;
     	button.addActionListener(new ActionListener() { 
     		public void actionPerformed(ActionEvent e) { 
-    			butEqual();
+    			if(!errorState) {butEqual();}
     		}
     	});
     	frame.getContentPane().add(button, c);
@@ -241,7 +242,7 @@ public class UserInterface {
     	button.setPreferredSize(preferredSize);
     	button.addActionListener(new ActionListener() { 
     		public void actionPerformed(ActionEvent e) { 
-    			butAddPress(s);
+    			if(!errorState) {butAddPress(s);}
     		}
     	});   	
     	frame.getContentPane().add(button, c);
@@ -251,9 +252,10 @@ public class UserInterface {
 	 * 
 	 */
 	protected void butEqual() {
-		String result = calc.reckon(input.getText());
+		Result result = calc.reckon(input.getText());
+		errorState = result.isErrorState();
 		input.setText("");
-		output.setText(String.format("%20s",result));
+		output.setText(String.format("%20s",result.getStringAnswer()));
 	}
 
 	protected void butInverse() {
@@ -281,6 +283,7 @@ public class UserInterface {
 		if(numCharDelete == 0) {
 			if(!input.getText().isEmpty()) {input.setText("");}
 			if(!output.getText().isEmpty()) {output.setText("");}
+			errorState = false;
 		} else if (!input.getText().isEmpty()){
 			input.setText(input.getText().substring(0, input.getText().length()-numCharDelete));
 		}

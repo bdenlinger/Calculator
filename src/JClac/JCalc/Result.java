@@ -19,27 +19,34 @@
 package JCalc;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
-import com.udojava.evalex.Expression;
-
-public class Calculator {
-
-	public Result reckon(String input) {
-		Result result = new Result();
-		Expression expression = new Expression(input);
-		expression.setRoundingMode(RoundingMode.HALF_UP);
-		try {
-			result.setNumericAnswer(expression.eval());
-			result.setStringAnswer(result.getNumericAnswer().toString());
-			result.setErrorState(false);
-		} 
-		catch(ArithmeticException e) {
-			System.err.println("Divide by zero is undefined.");
-			result.setErrorState(true);
-			result.setNumericAnswer(new BigDecimal(0));
-			result.setStringAnswer("undef");
-		}
-		return result;
+public class Result {
+	private BigDecimal numericAnswer;
+	private String stringAnswer;
+	private boolean errorState;
+	
+	public Result() {
+		numericAnswer = new BigDecimal(0);
+		stringAnswer = "";
+		errorState = false;
 	}
+	
+	public BigDecimal getNumericAnswer() {
+		return numericAnswer;
+	}
+	public void setNumericAnswer(BigDecimal numericAnswer) {
+		this.numericAnswer = numericAnswer;
+	}
+	public String getStringAnswer() {
+		return stringAnswer;
+	}
+	public void setStringAnswer(String answer) {
+		this.stringAnswer = answer;
+	}
+	public boolean isErrorState() {
+		return errorState;
+	}
+	public void setErrorState(boolean errorState) {
+		this.errorState = errorState;
+	}		
 }
