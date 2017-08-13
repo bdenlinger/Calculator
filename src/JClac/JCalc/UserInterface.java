@@ -18,7 +18,6 @@
 
 package JCalc;
 
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -32,137 +31,64 @@ import javax.swing.JTextArea;
 
 public class UserInterface {
     private final JFrame frame;
+    private JButton button;
     private final Calculator calc;
     private final JTextArea input = new JTextArea(0, 15);
     private final JTextArea output = new JTextArea(0, 15);
     private final Font inputFont = new Font("Monospaced", Font.PLAIN, 22);
     private final Font outputFont = new Font("Monospaced", Font.BOLD, 22);
     private final Font buttonFont = new Font("Monospaced", Font.PLAIN, 14);
+    private final Dimension preferredSize = new Dimension(50,40);
+    private final int padx = 10;
+    private final int pady = 10;
+    
 	
+    /**
+     * 
+     */
     public UserInterface() {
     	calc = new Calculator();
     	
         frame = new JFrame("Calculator");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        
-        init(frame.getContentPane());
-        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
+        init();        
         frame.pack();
-        frame.setVisible(true);
-        
+        frame.setVisible(true);      
     }
     
-    private void init(Container pane) {
-        JButton button;
-        pane.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        //c.weightx = 0.5;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = 30;
-        c.ipady = 30;
- 
-    	button = new JButton("7");
-        button.setFont(buttonFont);
-    	c.gridx = 0;
-    	c.gridy = 2;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("7");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("8");
-        button.setFont(buttonFont);
-    	c.gridx = 1;
-    	c.gridy = 2;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("8");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("9");
-        button.setFont(buttonFont);
-    	c.gridx = 2;
-    	c.gridy = 2;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("9");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("÷");
-        button.setFont(buttonFont);
-    	c.gridx = 3;
-    	c.gridy = 2;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("/");
-    		}
-    	});
-    	pane.add(button, c);
-    	   	
-    	button = new JButton("⌫");
-        button.setFont(buttonFont);
-    	c.gridx = 4;
-    	c.gridy = 2;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butDelPress();
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("C");
-        button.setFont(buttonFont);
-    	c.gridx = 5;
-    	c.gridy = 2;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butDelAllPress();
-    		}
-    	});
-    	pane.add(button, c);
+    /**
+     * 
+     * @param pane
+     */
+	private void init() {
+        frame.getContentPane().setLayout(new GridBagLayout());
         
-    	button = new JButton("4");
-        button.setFont(buttonFont);
-    	c.gridx = 0;
-    	c.gridy = 3;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("4");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("5");
-        button.setFont(buttonFont);
-    	c.gridx = 1;
-    	c.gridy = 3;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("5");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("6");
-        button.setFont(buttonFont);
-    	c.gridx = 2;
-    	c.gridy = 3;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("6");
-    		}
-    	});
-    	pane.add(button, c);
+        makeButton("0",0,5);
+        makeButton("1",0,4);
+        makeButton("2",1,4);
+        makeButton("3",2,4);
+        makeButton("4",0,3);
+        makeButton("5",1,3);
+        makeButton("6",2,3);
+    	makeButton("7",0,2);
+    	makeButton("8",1,2);
+    	makeButton("9",2,2);
+    	makeButton("+",3,5);
+    	makeButton("-",3,4);
+    	makeButton("(",4,3);
+    	makeButton(")",5,3);
+    	makeButton(".",1,5);
+    	makeButton("^",4,4);
+    	 	
+    	//Special case buttons
+    	GridBagConstraints c = new GridBagConstraints();
     	
     	button = new JButton("×");
         button.setFont(buttonFont);
+        button.setPreferredSize(preferredSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = padx;
+        c.ipady = pady;
     	c.gridx = 3;
     	c.gridy = 3;
     	button.addActionListener(new ActionListener() { 
@@ -170,87 +96,59 @@ public class UserInterface {
     			butAddPress("*");
     		}
     	});
-    	pane.add(button, c);
+    	frame.getContentPane().add(button, c);
     	
-    	button = new JButton("(");
+    	button = new JButton("÷");
         button.setFont(buttonFont);
-    	c.gridx = 4;
-    	c.gridy = 3;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("(");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton(")");
-        button.setFont(buttonFont);
-    	c.gridx = 5;
-    	c.gridy = 3;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress(")");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("1");
-        button.setFont(buttonFont);
-    	c.gridx = 0;
-    	c.gridy = 4;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("1");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("2");
-        button.setFont(buttonFont);
-    	c.gridx = 1;
-    	c.gridy = 4;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("2");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("3");
-        button.setFont(buttonFont);
-    	c.gridx = 2;
-    	c.gridy = 4;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("3");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("-");
-        button.setFont(buttonFont);
+        button.setPreferredSize(preferredSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = padx;
+        c.ipady = pady;
     	c.gridx = 3;
-    	c.gridy = 4;
+    	c.gridy = 2;
     	button.addActionListener(new ActionListener() { 
     		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("-");
+    			butAddPress("/");
     		}
     	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("^");
+    	frame.getContentPane().add(button, c);
+    	   	
+    	button = new JButton("⌫");
         button.setFont(buttonFont);
+        button.setPreferredSize(preferredSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = padx;
+        c.ipady = pady;
     	c.gridx = 4;
-    	c.gridy = 4;
+    	c.gridy = 2;
     	button.addActionListener(new ActionListener() { 
     		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("^");
+    			butDelPress(1);
     		}
     	});
-    	pane.add(button, c);
+    	frame.getContentPane().add(button, c);
     	
+    	button = new JButton("C");
+        button.setFont(buttonFont);
+        button.setPreferredSize(preferredSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = padx;
+        c.ipady = pady;
+    	c.gridx = 5;
+    	c.gridy = 2;
+    	button.addActionListener(new ActionListener() { 
+    		public void actionPerformed(ActionEvent e) { 
+    			butDelPress(0);
+    		}
+    	});
+    	frame.getContentPane().add(button, c);
+    	   	    	    	
     	button = new JButton("√");
         button.setFont(buttonFont);
+        button.setPreferredSize(preferredSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = padx;
+        c.ipady = pady;
     	c.gridx = 5;
     	c.gridy = 4;
     	button.addActionListener(new ActionListener() { 
@@ -258,32 +156,14 @@ public class UserInterface {
     			butSquareRoot();
     		}
     	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("0");
+    	frame.getContentPane().add(button, c);
+    	    	
+    	button = new JButton("x⁻¹");
         button.setFont(buttonFont);
-    	c.gridx = 0;
-    	c.gridy = 5;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("0");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton(".");
-        button.setFont(buttonFont);
-    	c.gridx = 1;
-    	c.gridy = 5;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress(".");
-    		}
-    	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("x⁻ⁱ");
-        button.setFont(buttonFont);
+        button.setPreferredSize(preferredSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = padx;
+        c.ipady = pady;
     	c.gridx = 2;
     	c.gridy = 5;
     	button.addActionListener(new ActionListener() { 
@@ -291,22 +171,14 @@ public class UserInterface {
     			butInverse();
     		}
     	});
-    	pane.add(button, c);
-    	
-    	button = new JButton("+");
-        button.setFont(buttonFont);
-    	c.gridx = 3;
-    	c.gridy = 5;
-    	button.addActionListener(new ActionListener() { 
-    		public void actionPerformed(ActionEvent e) { 
-    			butAddPress("+");
-    		}
-    	});
-    	pane.add(button, c);
+    	frame.getContentPane().add(button, c);
     	
     	button = new JButton("=");
-
         button.setFont(buttonFont);
+        button.setPreferredSize(preferredSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = padx;
+        c.ipady = pady;
     	c.gridx = 4;
     	c.gridy = 5;
     	c.gridwidth = 2;
@@ -315,7 +187,7 @@ public class UserInterface {
     			butEqual();
     		}
     	});
-    	pane.add(button, c);
+    	frame.getContentPane().add(button, c);
     	
         c.ipadx = 0;
         c.ipady = 0;
@@ -324,19 +196,63 @@ public class UserInterface {
         c.gridwidth = 6;
         c.gridx = 0;
         c.gridy = 0;
-        pane.add(input, c);
+        frame.getContentPane().add(input, c);
         
         output.setFont(outputFont);
         c.gridwidth = 6;
         c.gridx = 0;
         c.gridy = 1;
-        pane.add(output, c);
-    	
-
+        frame.getContentPane().add(output, c);
+        
     }
+	
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
+	private Boolean isOp(String s) {
+		if(s.equals("+")||s.equals("-")||s.equals("*")||s.equals("/")) {
+			return true;
+		} else return false;
+	}
+	
+	private Boolean isParen(String s) {
+		if(s.equals("(") || s.equals(")")) {
+			return true;
+		} else return false;
+	}
+	
+	/**
+	 * Making buttons is hard. Save lines of code to repeat the same actions
+	 * @param s string label and value to insert into input string
+	 * @param x Row to insert button into
+	 * @param y	Column to insert button into 
+	 */
+	private void makeButton(final String s, int x, int y) {
+    	button = new JButton(s);
+        button.setFont(buttonFont);
+		GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = padx;
+        c.ipady = pady;
+    	c.gridx = x;
+    	c.gridy = y;
+    	button.setPreferredSize(preferredSize);
+    	button.addActionListener(new ActionListener() { 
+    		public void actionPerformed(ActionEvent e) { 
+    			butAddPress(s);
+    		}
+    	});   	
+    	frame.getContentPane().add(button, c);
+	}
     
+	/**
+	 * 
+	 */
 	protected void butEqual() {
 		String result = calc.reckon(input.getText());
+		input.setText("");
 		output.setText(String.format("%20s",result));
 	}
 
@@ -345,36 +261,48 @@ public class UserInterface {
 		butEqual();		
 	}
 	
+	/**
+	 * 
+	 */
 	protected void butSquareRoot() {
 		int index = input.getText().length();
-		if(!isSymbol(input.getText().substring(index-1, index))) {
-			input.setText(input.getText() + "*");
+		if(!isOp(input.getText().substring(index-1, index))) {
+			input.append("*");
 		}
-		input.setText(input.getText().concat("SQRT("));
-		
+		input.setText(input.getText().concat("SQRT("));	
 	}
 
-	protected void butDelAllPress() {
-		input.setText("");
-		output.setText("");
+	/**
+	 * Deletes the specificed number of characters off the end of the input string.
+	 * If 0, clears input and output.
+	 * @param numCharDelete number of characters to delete
+	 */
+	protected void butDelPress(int numCharDelete) {
+		if(numCharDelete == 0) {
+			if(!input.getText().isEmpty()) {input.setText("");}
+			if(!output.getText().isEmpty()) {output.setText("");}
+		} else if (!input.getText().isEmpty()){
+			input.setText(input.getText().substring(0, input.getText().length()-numCharDelete));
+		}
 	}
 
-	protected void butDelPress() {
-		input.setText(input.getText().substring(0, input.getText().length()-1));
-		
-	}
-
+	/**
+	 * 
+	 * @param string
+	 */
 	protected void butAddPress(String string) {
-		if(!output.getText().isEmpty() && isSymbol(string)) {
-			input.setText(output.getText().trim() + string);
-		} else {
-		input.append(string);	
+		//Press = than a symbol (+-*/) set input to output
+		if(!output.getText().isEmpty() && input.getText().isEmpty() && (isOp(string) || isParen(string))) {
+			input.setText(output.getText().trim());
 		}
-	}
-	
-	private Boolean isSymbol(String s) {
-		if(s.equals("+")||s.equals("-")||s.equals("*")||s.equals("/")) {
-			return true;
-		} else return false;
+		//Press ( with no symbol before it append *
+		if (string.equals("(") && !input.getText().isEmpty()) {
+			int index = input.getText().length();
+			String prevChar = input.getText().substring(index-1, index);
+			if(!isOp(prevChar) && !isParen(prevChar)) {
+				input.append("*");
+			}			
+		}
+		input.append(string);
 	}
 }

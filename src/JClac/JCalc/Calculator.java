@@ -29,8 +29,12 @@ public class Calculator {
 		BigDecimal result = null;
 		Expression expression = new Expression(input);
 		expression.setRoundingMode(RoundingMode.HALF_UP);
-		result = expression.eval();
-		
+		try {
+			result = expression.eval();
+		} catch(ArithmeticException e) {
+			System.err.println("Divide by zero error");
+			return "undef";
+		}
 		return result.toString();
 	}
 }
