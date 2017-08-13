@@ -213,7 +213,7 @@ public class UserInterface {
 	 * @return
 	 */
 	private Boolean isOp(String s) {
-		if(s.equals("+")||s.equals("-")||s.equals("*")||s.equals("/")) {
+		if(s.equals("+")||s.equals("-")||s.equals("*")||s.equals("/")||s.equals("^")) {
 			return true;
 		} else return false;
 	}
