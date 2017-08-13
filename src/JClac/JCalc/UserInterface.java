@@ -54,6 +54,12 @@ public class UserInterface {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
         init();        
         frame.pack();
+        
+        Dimension minsz = frame.getSize();
+        minsz.height = minsz.height+2;
+        minsz.width = minsz.width+2;
+        
+        frame.setMinimumSize(minsz);
         frame.setVisible(true);      
     }
     
@@ -175,8 +181,7 @@ public class UserInterface {
         c.gridwidth = 6;
         c.gridx = 0;
         c.gridy = 1;
-        frame.getContentPane().add(output, c);
-        
+        frame.getContentPane().add(output, c);        
     }
 	
 	/**
