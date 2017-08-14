@@ -18,28 +18,6 @@
 
 package userInterface;
 
-import java.awt.Dimension;
+public class FinancialMode {
 
-import javax.swing.JFrame;
-
-public class UserInterface {      
-    private final JFrame frame;
-    private Mode mode = new Mode();
-	
-    /**
-     * 
-     */
-    public UserInterface() {    	
-        frame = new JFrame("Calculator");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mode.setMode(ModeType.BASIC, frame);
-        frame.pack();
-        
-        Dimension minsz = frame.getSize();
-        minsz.height = minsz.height+2;
-        minsz.width = minsz.width+2;
-        
-        frame.setMinimumSize(minsz);
-        frame.setVisible(true);      
-    }
 }
