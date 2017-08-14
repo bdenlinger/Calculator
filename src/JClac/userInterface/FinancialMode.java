@@ -18,6 +18,11 @@
 
 package userInterface;
 
+/**
+ * TODO
+ * @author brian
+ *
+ */
 public class FinancialMode {
 
 }

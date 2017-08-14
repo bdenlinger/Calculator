@@ -22,8 +22,7 @@ import userInterface.UserInterface;
 
 public class JCalc {
 	
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		UserInterface uicalc = new UserInterface();					
+		new UserInterface();					
 	}
 }

@@ -22,17 +22,22 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+/**
+ * Class creates the frame holding the mode and menus to facilitate changing modes
+ * @author brian
+ *
+ */
 public class UserInterface {      
     private final JFrame frame;
-    private Mode mode = new Mode();
+    private Mode mode;
 	
     /**
-     * 
+     * Basic Constructor
      */
-    public UserInterface() {    	
+    public UserInterface() {
         frame = new JFrame("Calculator");
+    	new Mode(ModeType.BASIC,frame);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mode.setMode(ModeType.BASIC, frame);
         frame.pack();
         
         Dimension minsz = frame.getSize();
@@ -41,5 +46,13 @@ public class UserInterface {
         
         frame.setMinimumSize(minsz);
         frame.setVisible(true);      
+    }
+    
+    /**
+     * Method to clear the pane and set a new mode
+     * @param m
+     */
+    private void switchMode(ModeType m) {
+    	mode.setMode(m, frame);
     }
 }
