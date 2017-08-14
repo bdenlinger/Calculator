@@ -16,7 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-package JCalc;
+package userInterface;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -28,6 +28,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+
+import JCalc.Calculator;
+import JCalc.Result;
 
 public class UserInterface {
     private final JFrame frame;
@@ -236,8 +239,14 @@ public class UserInterface {
 	}
 
 	protected void butInverse() {
-		input.setText("1/(" + input.getText() + ")");
-		butEqual();		
+		if(input.getText().isEmpty() && !output.getText().isEmpty()) {
+			input.setText(output.getText());
+			input.setText("1/(" + input.getText() + ")");
+			butEqual();
+		} else if(!input.getText().isEmpty()){
+			input.setText("1/(" + input.getText() + ")");
+			butEqual();
+		}
 	}
 	
 	/**

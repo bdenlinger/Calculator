@@ -18,6 +18,8 @@
 
 package JCalc;
 
+import userInterface.UserInterface;
+
 public class JCalc {
 	
 	@SuppressWarnings("unused")
