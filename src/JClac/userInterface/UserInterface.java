@@ -49,10 +49,11 @@ public class UserInterface {
     }
     
     /**
-     * Method to clear the pane and set a new mode
+     * Method to set a new mode and repack
      * @param m
      */
     private void switchMode(ModeType m) {
     	mode.setMode(m, frame);
+    	frame.pack();
     }
 }

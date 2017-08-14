@@ -27,6 +27,7 @@ public class Mode {
 	 */
 	@SuppressWarnings("unused")
 	public void setMode(ModeType m, JFrame f) {
+		//Remove all components before switching modes
 		f.getContentPane().removeAll();
     	switch(m) {
     	case BASIC:
